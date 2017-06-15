@@ -1,0 +1,223 @@
+#zapytanie 1a) kierowca, ktory przejechal najwiecej
+#wymagane zmienne: DATA1 i DATA2
+
+"SELECT kr.id_kierowcy
+   ,kr.imie
+   ,kr.nazwisko
+   ,sum(hp.liczba_km) AS max_liczba_km
+
+FROM kierowca kr
+LEFT JOIN historia_przejazdu hp ON kr.id_kierowcy = hp.id_kierowcy
+and hp.data > " + DATA1 + " and hp.data < " + DATA2 + 
+"GROUP BY kr.id_kierowcy
+ORDER BY sum(hp.liczba_km) DESC
+LIMIT 1 ;"
+
+#zapytanie 1b) kierowca, ktory przejechał najmniej
+#wymagane zmienne: DATA1 i DATA2
+
+"SELECT kr.id_kierowcy
+   ,kr.imie
+   ,kr.nazwisko
+   ,sum(hp.liczba_km) AS min_liczba_km
+
+FROM kierowca kr
+LEFT JOIN historia_przejazdu hp ON kr.id_kierowcy = hp.id_kierowcy
+and hp.data > " + DATA1 + " and hp.data < " + DATA2 + 
+"GROUP BY kr.id_kierowcy
+ORDER BY sum(hp.liczba_km) ASC
+LIMIT 1 ;"
+
+#zapytanie 2) największe średnie zużycie paliwa
+#wymagane zmienne: DATA1 i DATA2
+
+"SELECT pj.id_pojazdu
+   ,avg(hp.srednie_zuzycie_paliwa) AS srednie_paliwo
+
+FROM pojazd pj
+LEFT JOIN historia_przejazdu hp ON pj.id_pojazdu = hp.id_pojazdu
+and hp.data > " + DATA1 + " and hp.data < " + DATA2 + 
+"GROUP BY pj.id_pojazdu
+ORDER BY avg(hp.srednie_zuzycie_paliwa) DESC
+LIMIT 1 ;"
+
+#zapytanie 3) najdroższe serwisowanie po marce
+#wymagane zmienne: TYP (przyjmuje wartosc ciężarowy, dostawczy, osobowy), DATA1 i DATA2 (oznaczajace poczatek i koniec danego roku)
+
+
+"SELECT mk.opis_marki
+    ,sum(sw.cena) AS cena_serwisu
+
+FROM serwisowanie sw
+LEFT JOIN pojazd pj ON sw.id_pojazdu = pj.id_pojazdu
+LEFT JOIN typ_pojazdu tp ON pj.id_typ_pojazdu = tp.id_typ_pojazdu and tp.opis_typ = " + TYP +
+"LEFT JOIN marka mk ON pj.id_marki = mk.id_marki
+WHERE sw.data> + " DATA1 + " and sw.data< " + DATA2 + 
+"and tp.id_typ_pojazdu is not null
+GROUP BY mk.id_marki
+ORDER BY sum(sw.cena) DESC
+LIMIT 1 ;"
+
+#zapytanie 4) Samochody ciezarowe bez uprawnien (na razie wszystkie, w razie czego można ograniczyć tylko do ciezarowych)
+
+"SELECT kr.imie
+     ,kr.nazwisko
+
+FROM kierowca kr 
+LEFT JOIN pojazd pj ON kr.id_pojazdu = pj.id_pojazdu
+WHERE pj.wymagana_kat_pj > kr.id_kat_prawa_jazdy ;"
+
+#zapytanie 5) kierowca z najtanszym samochodem do serwisowania w danym czasie
+#wymagane zmienne: DATA1 i DATA2 
+
+"SELECT kr.imie
+     ,kr.nazwisko
+     ,sum(sw.cena) AS min_cena
+
+FROM kierowca kr 
+LEFT JOIN pojazd pj ON kr.id_pojazdu = pj.id_pojazdu
+LEFT JOIN serwis sw ON pj.id_pojazdu = sw.id_pojazdu
+WHERE sw.data> + " DATA1 + " and sw.data< " + DATA2 + 
+"GROUP BY kr.id_kierowcy
+ORDER BY sum(sw.cena) ASC
+LIMIT 1 ;"
+
+#zapytanie 6) kierowca z najdroższym zużyciem materiałów
+
+"SELECT kr.imie
+     ,kr.nazwisko
+     ,sum(hp.cena_zuzytego_paliwa) AS max_cena_paliwa
+
+FROM kierowca kr 
+LEFT JOIN historia_przejazdu hp ON kr.id_kierowcy = hp.id_kierowcy
+GROUP BY kr.id_kierowcy
+ORDER BY sum(hp.cena_zuzytego_paliwa) DESC
+LIMIT 1 ;"
+
+
+#zapytanie 7a) Materiały na ktore wydano najwiecej
+#wymagane zmienne: DATA1 i DATA2 (oznaczajace poczatek i koniec danego roku)
+
+"SELECT me.opis_rodzaj
+    , sum(me.cena) AS max_cena_mat
+
+FROM materialy_eksploatacyjne me
+LEFT JOIN rodzaj_materialu rm ON me.id_rodzaj_materialu = rm.id_rodzaj_materialu
+WHERE me.data_zakupu> + " DATA1 + " and me.data_zakupu< " + DATA2 + 
+"GROUP BY rm.id_rodzaj_materialu
+ORDER BY sum(me.cena) DESC
+LIMIT 1 ;"
+
+
+#zapytanie 7b) Materiały na ktore wydano najmniej
+#wymagane zmienne: DATA1 i DATA2 (oznaczajace poczatek i koniec danego roku)
+
+"SELECT me.opis_rodzaj
+    , sum(me.cena) AS min_cena_mat
+
+FROM materialy_eksploatacyjne me
+LEFT JOIN rodzaj_materialu rm ON me.id_rodzaj_materialu = rm.id_rodzaj_materialu
+WHERE me.data_zakupu> + " DATA1 + " and me.data_zakupu< " + DATA2 + 
+"GROUP BY rm.id_rodzaj_materialu
+ORDER BY sum(me.cena) ASC
+LIMIT 1 ;"
+
+
+#zapytanie 8) ładunek przewozony przez największą liczbę km
+
+"SELECT ld.opis_rodzaju
+    ,sum(hp.liczba_km) AS max_liczba_km
+
+FROM ladunek ld
+LEFT JOIN historia_przejazdu hp ON hp.id_historii = ld.id_historii
+LEFT JOIN rodzaj_ladunku rl on ld.id_rodzaju = rl.id_rodzaju
+GROUP BY ld.id_rodzaju
+ORDER BY sum(hp.liczba_km) DESC
+LIMIT 1 ;"
+
+#zapytanie 9) Jaki rodzaj ładunku ma najmniejszy koszt przewozu na 1km
+
+"SELECT ld.opis_rodzaju
+    ,sum(cena_zuzytego_paliwa)/sum(liczba_km) AS max_koszt_przewozu
+
+FROM ladunek ld
+LEFT JOIN historia_przejazdu hp ON hp.id_historii = ld.id_historii
+LEFT JOIN rodzaj_ladunku rl on ld.id_rodzaju = rl.id_rodzaju
+GROUP BY ld.id_rodzaju
+ORDER BY 2 ASC
+LIMIT 1 ;"
+
+#zapytanie 10a) Kto ma najwięcej punktów karnych przyznanych w okresie od ... do...
+#wymagane zmienne: DATA1 i DATA2
+
+"SELECT kr.id_kierowcy
+   ,kr.imie
+   ,kr.nazwisko
+   ,sum(m.pkt_karne) AS max_punkty_karne
+
+FROM kierowca kr
+LEFT JOIN mandat m ON kr.id_kierowcy = m.id_kierowcy
+and m.data > " + DATA1 + " and m.data < " + DATA2 + 
+"GROUP BY kr.id_kierowcy
+ORDER BY sum(m.pkt_karne) DESC
+LIMIT 1 ;"
+
+
+#zapytanie 10b) Kto ma najmniej punktów karnych przyznanych w okresie od ... do...
+#wymagane zmienne: DATA1 i DATA2
+
+"SELECT kr.id_kierowcy
+   ,kr.imie
+   ,kr.nazwisko
+   ,sum(m.pkt_karne) AS max_punkty_karne
+
+FROM kierowca kr
+LEFT JOIN mandat m ON kr.id_kierowcy = m.id_kierowcy
+and m.data > " + DATA1 + " and m.data < " + DATA2 + 
+"GROUP BY kr.id_kierowcy
+ORDER BY sum(m.pkt_karne) ASC
+LIMIT 1 ;"
+
+#zapytanie 11a) Przy przewozie jakiego łądunku w okresie od... do ... przyznano najwieksza liczbe punktow karnych
+
+"SELECT ld.opis_rodzaju
+    ,sum(m.pkt_karne) AS max_liczba_km
+
+FROM ladunek ld
+LEFT JOIN rodzaj_ladunku rl on ld.id_rodzaju = rl.id_rodzaju
+LEFT JOIN historia_przejazdu hp ON hp.id_historii = ld.id_historii
+LEFT JOIN mandat m ON hp.id_historii = m.id_historii 
+and m.data > " + DATA1 + " and m.data < " + DATA2 + 
+"GROUP BY ld.id_rodzaju
+ORDER BY sum(m.pkt_karne) DESC
+LIMIT 1 ;"
+
+
+#zapytanie 11b) Przy przewozie jakiego łądunku w okresie od... do ... przyznano najwieksza liczbe punktow karnych
+
+"SELECT ld.opis_rodzaju
+    ,sum(m.pkt_karne) AS max_liczba_km
+
+FROM ladunek ld
+LEFT JOIN rodzaj_ladunku rl on ld.id_rodzaju = rl.id_rodzaju
+LEFT JOIN historia_przejazdu hp ON hp.id_historii = ld.id_historii
+LEFT JOIN mandat m ON hp.id_historii = m.id_historii 
+and m.data > " + DATA1 + " and m.data < " + DATA2 + 
+"GROUP BY ld.id_rodzaju
+ORDER BY sum(m.pkt_karne) ASC
+LIMIT 1 ;"
+
+
+
+#tabele do utworzenia
+CREATE TABLE table_name(
+   column1 datatype,
+   column2 datatype,
+   column3 datatype,
+   .....
+   columnN datatype,
+   PRIMARY KEY( one or more columns )
+);
+FOREIGN KEY ( column [, ... ] ) REFERENCES reftable [ ( refcolumn [, ... ] ) ]
+
+
