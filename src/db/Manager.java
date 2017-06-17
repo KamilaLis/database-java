@@ -6,16 +6,15 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
 public class Manager implements ManagerInterface{
-
-	/*void createTable(){}
-	void addMember(){}
-	void removeMember(){}*/
 	
 	public Connection connect(String host, String database, String user, String password){
+		// Polaczenie z baza danych (parametry podawane przy wywolaniu aplikacji)
 		Connection con = null;
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -32,6 +31,7 @@ public class Manager implements ManagerInterface{
 	}
 	
 	public void closeConnection(Connection con){
+		// Zakonczenie polaczenia
 		try {
 			con.close();
 		} catch (SQLException e) {
@@ -45,7 +45,8 @@ public class Manager implements ManagerInterface{
 	
 	
 	
-	public void update(Connection con,String sql){
+	void update(Connection con,String sql){
+		// Realizacja zapytan typu: INSERT, CREATE...
 		Statement stmt = null;
 		try {
 			stmt = con.createStatement();
@@ -57,7 +58,8 @@ public class Manager implements ManagerInterface{
 		}
 	}
 	
-	public String[] ask(Connection con, String query, String[] names){
+	String[] ask(Connection con, String query, String[] names){
+		// Realizacja zapytan typu: SELECT
 		Statement stmt = null;
 		String[] o = new String[names.length];
 		try {
@@ -78,7 +80,7 @@ public class Manager implements ManagerInterface{
 		return o;
 	}
 	
-	public DefaultTableModel getTable(Connection con, String sql){
+	DefaultTableModel getTable(Connection con, String sql){
 		Statement stmt = null;
 		DefaultTableModel model = new DefaultTableModel();
 		try {
@@ -103,6 +105,31 @@ public class Manager implements ManagerInterface{
 		return model;
 	}
 	
+	List<String[]> getTableAsList(Connection con, String sql){
+		Statement stmt = null;
+		List<String[]> table = new ArrayList<>();
+	      try {
+	         stmt = con.createStatement();
+	         ResultSet result = stmt.executeQuery(sql);
+	         int nCol = result.getMetaData().getColumnCount();
+	         
+	         while( result.next()) {
+	             String[] row = new String[nCol];
+	             for( int iCol = 1; iCol <= nCol; iCol++ ){
+	                     Object obj = result.getObject( iCol );
+	                     row[iCol-1] = (obj == null) ?null:obj.toString();
+	             }
+	             table.add( row );
+	         }
+	         result.close();
+	         stmt.close();
+	      } catch ( Exception e ) {
+	         System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+	         System.exit(0);
+	      }
+	      System.out.println("Operation done successfully");
+	      return table;
+	}
 /*	void createTable(Connection con){
 		String sql = "CREATE TABLE COMPANY " +
 				"(ID INT PRIMARY KEY     NOT NULL," +
