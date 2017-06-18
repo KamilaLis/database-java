@@ -18,7 +18,7 @@ CREATE TABLE pojazd(
    id_typ_pojazdu int REFERENCES typ_pojazdu,
    id_marki int NOT NULL REFERENCES marka,
    id_modelu int NOT NULL REFERENCES model,
-   wymagana_kat_p_j char(10) NOT NULL,
+   id_kat_prawa_jazdy int NOT NULL REFERENCES kategoria_prawa_jazdy,
    przebieg real NOT NULL,
    rodz_paliwa char(20) NOT NULL,
    nr_rejestr char(10) NOT NULL

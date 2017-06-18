@@ -60,6 +60,8 @@ FROM '$DIR/csvki/rodzaj_materialu.csv' DELIMITER ',' CSV HEADER;"
 sudo -u postgres psql $DATABASE --command "COPY czynnosc(opis_czynnosci) 
 FROM '$DIR/csvki/czynnosc.csv' DELIMITER ',' CSV HEADER;"
 
+
+
 #OPCJONALNIE: Create new role
 #sudo -u postgres createuser --interactive \
 #"$USER"
