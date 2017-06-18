@@ -62,5 +62,17 @@ for i in range(len(rodzaj_ladunku)):
 
 file_w4.close()
 
+#Czesci_samochodowe
+file_w5 = open('czesci_samochodowe.csv', 'w')
+ 
+czesci_samochodowe = ['akumulator', 'przeguby', 'silnik', 'drazki kierownicze', 'karoseria', 'wycieraczki', 'instalacja elektryczna', 'turbosprezarka', 'klimatyzacja', 'skrzynia biegow', 'waly i polosie']
+
+file_w5.write('czesci_samochodowe\n')
+
+for i in range(len(czesci_samochodowe)):
+	file_w5.write(czesci_samochodowe[i]+'\n')
+
+file_w5.close()
+
 
 	
