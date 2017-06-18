@@ -46,7 +46,7 @@ kategoria_prawa_jazdy = ['AM', 'A1', 'A2', 'A', 'B1', 'B', 'C1', 'C', 'D1', 'D',
 file_w3.write('kategoria_prawa_jazdy\n')
 
 for i in range(len(kategoria_prawa_jazdy)):
-	file_w3.write(kaztegoria_prawa_jazdy[i]+'\n')
+	file_w3.write(kategoria_prawa_jazdy[i]+'\n')
 
 file_w3.close()
 
