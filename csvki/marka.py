@@ -37,8 +37,63 @@ for i in range(len(model)):
 	file_w2.write(model[i]+'\n')
 
 file_w2.close() 
-	
 
+#Kategoria_prawa_jazdy
+file_w3 = open('kategoria_prawa_jazdy.csv', 'w')
+ 
+kategoria_prawa_jazdy = ['AM', 'A1', 'A2', 'A', 'B1', 'B', 'C1', 'C', 'D1', 'D', 'BE', 'C1E', 'CE', 'D1E', 'DE', 'T']
 
+file_w3.write('kategoria_prawa_jazdy\n')
 
-	
+for i in range(len(kategoria_prawa_jazdy)):
+	file_w3.write(kategoria_prawa_jazdy[i]+'\n')
+
+file_w3.close()
+
+#Rodzaj_ladunku
+file_w4 = open('rodzaj_ladunku.csv', 'w')
+ 
+rodzaj_ladunku = ['ladunki wysokiej wartosci', 'szybko psujace sie', 'sypkie', 'ponadgabarytowe', 'niebezpieczne', 'plynne', 'drobnicowe']
+
+file_w4.write('rodzaj_ladunku\n')
+
+for i in range(len(rodzaj_ladunku)):
+	file_w4.write(rodzaj_ladunku[i]+'\n')
+
+file_w4.close()
+
+#Czesci_samochodowe
+file_w5 = open('czesci_samochodowe.csv', 'w')
+ 
+czesci_samochodowe = ['akumulator', 'przeguby', 'silnik', 'drazki kierownicze', 'karoseria', 'wycieraczki', 'instalacja elektryczna', 'turbosprezarka', 'klimatyzacja', 'skrzynia biegow', 'waly i polosie']
+
+file_w5.write('czesci_samochodowe\n')
+
+for i in range(len(czesci_samochodowe)):
+	file_w5.write(czesci_samochodowe[i]+'\n')
+
+file_w5.close()
+
+#rodzaj_materialu
+file_w6 = open('rodzaj_materialu.csv', 'w')
+ 
+rodzaj_materialu = ['plyn do spryskiwaczy', 'paliwo', 'gaz', 'ropa', 'olej']
+
+file_w6.write('rodzaj_materialu\n')
+
+for i in range(len(rodzaj_materialu)):
+	file_w6.write(rodzaj_materialu[i]+'\n')
+
+file_w6.close()
+
+#czynnosc
+file_w7 = open('czynnosc.csv', 'w')
+ 
+czynnosc = ['naprawa', 'wymiana']
+
+file_w7.write('czynnosc\n')
+
+for i in range(len(czynnosc)):
+	file_w7.write(czynnosc[i]+'\n')
+
+file_w7.close()
