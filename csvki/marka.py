@@ -50,5 +50,17 @@ for i in range(len(kategoria_prawa_jazdy)):
 
 file_w3.close()
 
+#Rodzaj_ladunku
+file_w4 = open('rodzaj_ladunku.csv', 'w')
+ 
+rodzaj_ladunku = ['ladunki wysokiej wartosci', 'szybko psujace sie', 'sypkie', 'ponadgabarytowe', 'niebezpieczne', 'plynne', 'drobnicowe']
+
+file_w4.write('rodzaj_ladunku\n')
+
+for i in range(len(rodzaj_ladunku)):
+	file_w4.write(rodzaj_ladunku[i]+'\n')
+
+file_w4.close()
+
 
 	
