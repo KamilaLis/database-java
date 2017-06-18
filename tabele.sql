@@ -1,8 +1,8 @@
 CREATE TABLE kierowca(
    id_kierowcy int PRIMARY KEY NOT NULL,
-   imie text NOT NULL,
-   nazwisko text NOT NULL,
-   PESEL bigint NOT NULL,
+   imie char(50) NOT NULL,
+   nazwisko char(50) NOT NULL,
+   PESEL char(20) NOT NULL,
    id_zastepcy int NOT NULL,
    id_kat_prawa_jazdy int NOT NULL REFERENCES kategoria_prawa_jazdy,
    id_pojazdu int NOT NULL REFERENCES pojazd
@@ -12,10 +12,10 @@ CREATE TABLE historia_przejazdu(
    id_historii int  PRIMARY KEY NOT NULL,
    id_kierowcy int NOT NULL REFERENCES kierowca,
    id_pojazdu int NOT NULL REFERENCES pojazd,
-   miejsce_startu text NOT NULL,
-   miejsce_docelowe text NOT NULL,
+   miejsce_startu char(50) NOT NULL,
+   miejsce_docelowe char(50) NOT NULL,
    liczba_km real NOT NULL,
-   srednie_zuzycie_paliwa NOT NULL,
+   srednie_zuzycie_paliwa real NOT NULL,
    cena_zuzytego_paliwa real NOT NULL,
    data date NOT NULL,
    przyczepa boolean NOT NULL,
@@ -45,21 +45,21 @@ CREATE TABLE ladunek(
 
 CREATE TABLE rodzaj_ladunku(
    id_rodzaju int PRIMARY KEY NOT NULL,
-   opis_rodzaju text
+   opis_rodzaju char(50)
 );
 
 CREATE TABLE przyczepa(
    id_przyczepy int PRIMARY KEY NOT NULL,
-   id_marki NOT NULL REFERENCES marka,
-   id_modelu NOT NULL REFERENCES model,
+   id_marki int NOT NULL REFERENCES marka,
+   id_modelu int NOT NULL REFERENCES model,
    nr_rejestr char(10) NOT NULL
 );
 
 CREATE TABLE pojazd(
    id_pojazdu int PRIMARY KEY NOT NULL,
    id_typ_pojazdu int REFERENCES typ_pojazdu,
-   id_marki NOT NULL REFERENCES marka,
-   id_modelu NOT NULL REFERENCES model,
+   id_marki int NOT NULL REFERENCES marka,
+   id_modelu int NOT NULL REFERENCES model,
    wymagana_kat_p_j char(10) NOT NULL,
    przebieg real NOT NULL,
    rodz_paliwa char(20) NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE serwis(
    id_pojazdu int NOT NULL REFERENCES pojazd,
    data date NOT NULL,
    id_przedmiotu int NOT NULL REFERENCES czesc_samochodowa,
-   id_czynnosciint NOT NULL REFERENCES czynnosc,
+   id_czynnosci int NOT NULL REFERENCES czynnosc,
    miejsce_serwisu char(50) NOT NULL,
    cena real NOT NULL,
 );
