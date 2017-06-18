@@ -23,11 +23,12 @@ fi
 
 
 # Check if Postgresql is installed
-program="postgresql"
+program="psql"
 condition=$(which $program 2>/dev/null | grep -v "not found" | wc -l)
 if [ $condition -eq 0 ] ; then
     echo "$program is not installed"
-    sudo apt-get install postgresql-9.6
+    sudo apt-get install postgresql postgresql-contrib
+    #sudo apt-get install postgresql-9.6
 else
     echo "$program is installed"
 fi
@@ -36,7 +37,7 @@ fi
 service postgresql start
 echo "Creating database in postgresql..."
 sudo -u postgres psql --command "CREATE DATABASE $DATABASE;"
-sudo -u postgres psql --command "ALTER USER postgres WITH PASSWORD '$PASS';"
+sudo -u postgres psql $DATABASE --command "ALTER USER postgres WITH PASSWORD '$PASS';"
 sudo -u postgres psql $DATABASE --file init.sql
 
 
