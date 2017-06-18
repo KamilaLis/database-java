@@ -41,7 +41,11 @@ sudo -u postgres psql $DATABASE --command "ALTER USER postgres WITH PASSWORD '$P
 sudo -u postgres psql $DATABASE --file init.sql
 
 # Import CSV file into table
-sudo -u postgres psql $DATABASE --file importCSV.sql
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+sudo -u postgres psql $DATABASE --command "COPY marka(opis_marki) 
+FROM '$DIR/csvki/marka.csv' DELIMITER ',' CSV HEADER;"
+sudo -u postgres psql $DATABASE --command "COPY model(opis_modelu) 
+FROM '$DIR/csvki/model.csv' DELIMITER ',' CSV HEADER;"
 
 
 #OPCJONALNIE: Create new role
