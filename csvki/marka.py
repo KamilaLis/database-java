@@ -1,16 +1,17 @@
 #!usr/bin/env python
 
 import csv
+import random
 
-# model
+# marka
 file_w = open('marka.csv', 'w')
  
-cars = ['Chevrolet', 'Chrysler', 'Honda', 'Mazda', 'Fiat', 'Toyota', 'BMW', 'Mercedes', 'Mitsubishi', 'Audi']
+marka = ['Chevrolet', 'Chrysler', 'Honda', 'Mazda', 'Fiat', 'Toyota', 'BMW', 'Mercedes', 'Mitsubishi', 'Audi']
 
 file_w.write('marka\n')
 
-for i in range(len(cars)):
-	file_w.write(cars[i]+'\n')
+for i in range(len(marka)):
+	file_w.write(marka[i]+'\n')
 
 file_w.close()
 	
@@ -97,3 +98,42 @@ for i in range(len(czynnosc)):
 	file_w7.write(czynnosc[i]+'\n')
 
 file_w7.close()
+
+#pojad
+file_w8 = open('pojad.csv', 'w')
+
+file_w8.write('id_typ_pojazdu,id_marki,id_modelu,id_wymagana_kat_p_j,przebieg,rodz_paliwa,nr_rejestr\n')
+paliwo = ['benzyna', 'olej', 'gaz', 'ropa']
+
+for j in range(750):
+	pojazd_int = [1,random.randint(0,len(marka)-1),random.randint(0,len(model)-1),random.randint(0,len(kategoria_prawa_jazdy)-1)]
+	pojazd_float = random.uniform(0,300000)
+	pal = paliwo[random.randint(0,len(paliwo)-1)]
+	nr_rejstr = 'WI' + str(random.randint(10000,99999))
+	for i in range(len(pojazd_int)):
+		file_w8.write(str(pojazd_int[i])+',')
+	file_w8.write(str(pojazd_float)+',')
+	file_w8.write(pal+',')
+	file_w8.write(nr_rejstr+'\n')
+for j in range(50):
+	pojazd_int = [2,random.randint(0,len(marka)-1),random.randint(0,len(model)-1),random.randint(0,len(kategoria_prawa_jazdy)-1)]
+	pojazd_float = random.uniform(0,300000)
+	pal = paliwo[random.randint(0,len(paliwo)-1)]
+	nr_rejstr = 'WI' + str(random.randint(10000,99999))
+	for i in range(len(pojazd_int)):
+		file_w8.write(str(pojazd_int[i])+',')
+	file_w8.write(str(pojazd_float)+',')
+	file_w8.write(pal+',')
+	file_w8.write(nr_rejstr+'\n')
+for j in range(1000):
+	pojazd_int = [3,random.randint(0,len(marka)-1),random.randint(0,len(model)-1),random.randint(0,len(kategoria_prawa_jazdy)-1)]
+	pojazd_float = random.uniform(0,300000)
+	pal = paliwo[random.randint(0,len(paliwo)-1)]
+	nr_rejstr = 'WI' + str(random.randint(10000,99999))
+	for i in range(len(pojazd_int)):
+		file_w8.write(str(pojazd_int[i])+',')
+	file_w8.write(str(pojazd_float)+',')
+	file_w8.write(pal+',')
+	file_w8.write(nr_rejstr+'\n')
+
+file_w8.close()
