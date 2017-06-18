@@ -40,6 +40,9 @@ sudo -u postgres psql --command "CREATE DATABASE $DATABASE;"
 sudo -u postgres psql $DATABASE --command "ALTER USER postgres WITH PASSWORD '$PASS';"
 sudo -u postgres psql $DATABASE --file init.sql
 
+# Import CSV file into table
+sudo -u postgres psql $DATABASE --file importCSV.sql
+
 
 #OPCJONALNIE: Create new role
 #sudo -u postgres createuser --interactive \

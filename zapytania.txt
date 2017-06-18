@@ -41,6 +41,7 @@ and hp.data > " + DATA1 + " and hp.data < " + DATA2 +
 ORDER BY avg(hp.srednie_zuzycie_paliwa) DESC
 LIMIT 1 ;"
 
+#TODO:##############
 #zapytanie 3) najdroższe serwisowanie po marce
 #wymagane zmienne: TYP (przyjmuje wartosc ciężarowy, dostawczy, osobowy), DATA1 i DATA2 (oznaczajace poczatek i koniec danego roku)
 
@@ -57,6 +58,7 @@ WHERE sw.data> + " DATA1 + " and sw.data< " + DATA2 +
 GROUP BY mk.id_marki
 ORDER BY sum(sw.cena) DESC
 LIMIT 1 ;"
+
 
 #zapytanie 4) Samochody ciezarowe bez uprawnien (na razie wszystkie, w razie czego można ograniczyć tylko do ciezarowych)
 
