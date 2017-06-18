@@ -4,18 +4,7 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
-public class Driver{
-	
-	Manager m;
-	int id_kierowcy;
-	String imie;
-	String nazwisko;
-	int PESEL;
-	char kat_prawa_jazdy;
-	
-	Driver(){
-		this.m = new Manager();
-	}
+public class Driver extends Table{
 
 	void createTable(Connection con){
 		String sql = "CREATE TABLE kierowca " +
@@ -24,29 +13,34 @@ public class Driver{
 				" nazwisko       TEXT    NOT NULL, " +
 				" PESEL          BIGINT, " +
 				" kat_prawa_jazdy        CHAR)";
-		m.update(con,sql);
+		update(con,sql);
 		System.out.println("Table created successfully");
 	}
 	
 	DefaultTableModel getTableDriver(Connection con){
-		String sql = "SELECT * FROM kierowcy;";
-		DefaultTableModel table = m.getTable(con, sql); 
+		String sql = "SELECT * FROM kierowca;";
+		DefaultTableModel table = getTable(con, sql); 
 		//nie jestem pewna czy sie dobrze tworzy
 		//do wykorzystania przez JTable
 		//table.setModel(model);
 		return table;
 	}
 	
+	List<String[]> getTable(Connection con){
+		String sql = "SELECT * FROM kierowca;";
+		return getTableAsList(con, sql); 
+	}
+	
 	void addMember(Connection con, String name, String lastname,
 			int pesel, char drivingLicence){
 		String sql = "INSERT INTO kierowca (imie,nazwisko,PESEL,kat_prawa_jazdy)"
 	            + "VALUES ("+name+", "+lastname+", "+pesel+", "+drivingLicence+" );";
-		m.update(con,sql);
+		update(con,sql);
 	}
 	
 	void removeMember(Connection con, int driverID){
 		String sql = "DELETE from kierowca where id_kierowcy = "+driverID+";";
-		m.update(con,sql);
+		update(con,sql);
 	}
 	
 	String[] getDriverWithMaxKm(Connection con,Date from, Date to){
@@ -64,7 +58,7 @@ public class Driver{
 					"LIMIT 1 ;";
 		String[] elems = {"kr.id_kierowcy","kr.imir","kr.nazwisko",
 				"sum(hp.liczba_km)"};
-		return m.ask(con, sql, elems);
+		return ask(con, sql, elems);
 	}
 	
 	String[] getDriverWithMinKm(Connection con, Date from, Date to){
@@ -82,7 +76,7 @@ public class Driver{
 				"LIMIT 1 ;";
 		String[] elems = {"kr.id_kierowcy","kr.imir","kr.nazwisko",
 		"sum(hp.liczba_km)"};
-		return m.ask(con, sql, elems);
+		return ask(con, sql, elems);
 	}
 	
 	String[] getDriverWithCheapestCarForServicing(Connection con, Date from, Date to){
@@ -99,7 +93,7 @@ public class Driver{
 				"ORDER BY sum(sw.cena) ASC " +
 				"LIMIT 1 ;";
 		String[] elems = {"kr.imie","kr.nazwisko","sum(sw.cena)"};
-		return m.ask(con, sql, elems);
+		return ask(con, sql, elems);
 	}
 	
 	String[] getDriverWithTheMostExpensiveMaterials(Connection con){
@@ -113,7 +107,7 @@ public class Driver{
 				"ORDER BY sum(hp.cena_zuzytego_paliwa) DESC " +
 				"LIMIT 1 ;";
 		String[] elems = {"kr.imie","kr.nazwisko","sum(hp.cena_zuzytego_paliwa)"};
-		return m.ask(con, sql, elems);
+		return ask(con, sql, elems);
 	}
 	
 	String[] getDriverWithMostPenaltyPoints(Connection con, Date from, Date to){
@@ -129,7 +123,7 @@ public class Driver{
 				"ORDER BY sum(m.pkt_karne) DESC " +
 				"LIMIT 1 ;";
 		String[] elems = {"kr.id_kierowcy","kr.imie","kr.nazwisko","sum(m.pkt_karne)"};
-		return m.ask(con, sql, elems);
+		return ask(con, sql, elems);
 	}
 	
 	String[] getDriverWithLeastPenaltyPoints(Connection con, Date from, Date to){
@@ -145,7 +139,7 @@ public class Driver{
 				"ORDER BY sum(m.pkt_karne) ASC " +
 				"LIMIT 1 ;";
 		String[] elems = {"kr.id_kierowcy","kr.imie","kr.nazwisko","sum(m.pkt_karne)"};
-		return m.ask(con, sql, elems);
+		return ask(con, sql, elems);
 	}
 	
 	String[] getDriverWithWrongDrivingLicense(Connection con){
@@ -157,7 +151,7 @@ public class Driver{
 				"LEFT JOIN pojazd pj ON kr.id_pojazdu = pj.id_pojazdu" +
 				"WHERE pj.wymagana_kat_pj > kr.id_kat_prawa_jazdy ;";
 		String[] elems = {"kr.imie","kr.nazwisko"};
-		return m.ask(con, sql, elems);
+		return ask(con, sql, elems);
 	}
 	
 	
@@ -167,7 +161,8 @@ public class Driver{
         Connection con = m.connect("localhost","users","postgres","corewars");
         //String[] elems = {"login","password"};
         //DefaultTableModel users = m.getTable(con, "SELECT * FROM users_info;");
-        List<String[]> response = m.getTableAsList(con, "SELECT * FROM users_info;");
+        Table t = new Table();
+        List<String[]> response = t.getTableAsList(con, "SELECT * FROM users_info;");
         for( String[] row: response ){
             for( String s: row ){
                 System.out.print( " " + s );
