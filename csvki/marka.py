@@ -74,5 +74,26 @@ for i in range(len(czesci_samochodowe)):
 
 file_w5.close()
 
+#rodzaj_materialu
+file_w6 = open('rodzaj_materialu.csv', 'w')
+ 
+rodzaj_materialu = ['plyn do spryskiwaczy', 'paliwo', 'gaz', 'ropa', 'olej']
 
-	
+file_w6.write('rodzaj_materialu\n')
+
+for i in range(len(rodzaj_materialu)):
+	file_w6.write(rodzaj_materialu[i]+'\n')
+
+file_w6.close()
+
+#czynnosc
+file_w7 = open('czynnosc.csv', 'w')
+ 
+czynnosc = ['naprawa', 'wymiana']
+
+file_w7.write('czynnosc\n')
+
+for i in range(len(czynnosc)):
+	file_w7.write(czynnosc[i]+'\n')
+
+file_w7.close()
