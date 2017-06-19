@@ -3,6 +3,14 @@
 import csv
 import random
 
+def read_words(words_file):
+  with open(words_file, 'r') as f:
+    ret = []
+    for line in f:
+      ret += line.split()
+    return ret
+
+
 # marka
 file_w = open('marka.csv', 'w')
  
@@ -137,3 +145,28 @@ for j in range(1000):
 	file_w8.write(nr_rejstr+'\n')
 
 file_w8.close()
+
+#kierowcy
+file_w9 = open('kierowcy.csv', 'w')
+
+file_w9.write('imie,nazwisko,PESEL,id_zastepcy,id_kat_prawa_jazdy,id_pojazdu\n')
+imiona = read_words('imiona.txt')
+nazwiska = read_words('nazwiska.txt')
+pesele = read_words('pesele.txt')
+
+for i in range(60):
+	imie = imiona[random.randint(0,len(imiona)-1)]
+	nazwisko = nazwiska[random.randint(0,len(nazwiska)-1)]
+	while True:
+		id_zastepcy = random.randint(1,60)
+		if id_zastepcy != i:
+			break
+	kat = random.randint(1,len(kategoria_prawa_jazdy))
+	file_w9.write(str(imie)+',')
+	file_w9.write(str(nazwisko)+',')
+	file_w9.write(str(pesele[i])+',')
+	file_w9.write(str(id_zastepcy)+',')
+	file_w9.write(str(kat)+',')
+	file_w9.write(str(random.randint(1,1800))+'\n')
+
+file_w9.close()
