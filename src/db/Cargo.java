@@ -8,10 +8,11 @@ import javax.swing.table.DefaultTableModel;
 public class Cargo extends Table{
 
 	void addMember(Connection con, 
-			int id_ladunku,int id_rodzaju,float waga,int id_historii){
+			int id_rodzaju,
+			float waga,int id_historii){
 		String sql = "INSERT INTO ladunek "+
-			"(id_ladunku,id_rodzaju,waga,id_historii)" +
-	         "VALUES ("+id_ladunku+", "+id_rodzaju+","+waga+", "+id_historii+"); ";
+			"(id_rodzaju,waga,id_historii)" +
+	         "VALUES ("+id_rodzaju+","+waga+", "+id_historii+"); ";
 		update(con,sql);
 	}
 	

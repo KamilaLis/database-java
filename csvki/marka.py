@@ -64,11 +64,11 @@ for i in range(len(rodzaj_ladunku)):
 file_w4.close()
 
 #Czesci_samochodowe
-file_w5 = open('czesci_samochodowe.csv', 'w')
+file_w5 = open('czesc_samochodowa.csv', 'w')
  
 czesci_samochodowe = ['akumulator', 'przeguby', 'silnik', 'drazki kierownicze', 'karoseria', 'wycieraczki', 'instalacja elektryczna', 'turbosprezarka', 'klimatyzacja', 'skrzynia biegow', 'waly i polosie']
 
-file_w5.write('czesci_samochodowe\n')
+file_w5.write('czesc_samochodowa\n')
 
 for i in range(len(czesci_samochodowe)):
 	file_w5.write(czesci_samochodowe[i]+'\n')
@@ -100,13 +100,13 @@ for i in range(len(czynnosc)):
 file_w7.close()
 
 #pojad
-file_w8 = open('pojad.csv', 'w')
+file_w8 = open('pojazd.csv', 'w')
 
 file_w8.write('id_typ_pojazdu,id_marki,id_modelu,id_wymagana_kat_p_j,przebieg,rodz_paliwa,nr_rejestr\n')
 paliwo = ['benzyna', 'olej', 'gaz', 'ropa']
 
 for j in range(750):
-	pojazd_int = [1,random.randint(0,len(marka)-1),random.randint(0,len(model)-1),random.randint(0,len(kategoria_prawa_jazdy)-1)]
+	pojazd_int = [1,random.randint(1,len(marka)),random.randint(1,len(model)),random.randint(1,len(kategoria_prawa_jazdy))]
 	pojazd_float = random.uniform(0,300000)
 	pal = paliwo[random.randint(0,len(paliwo)-1)]
 	nr_rejstr = 'WI' + str(random.randint(10000,99999))
@@ -116,7 +116,7 @@ for j in range(750):
 	file_w8.write(pal+',')
 	file_w8.write(nr_rejstr+'\n')
 for j in range(50):
-	pojazd_int = [2,random.randint(0,len(marka)-1),random.randint(0,len(model)-1),random.randint(0,len(kategoria_prawa_jazdy)-1)]
+	pojazd_int = [2,random.randint(1,len(marka)),random.randint(1,len(model)),random.randint(1,len(kategoria_prawa_jazdy))]
 	pojazd_float = random.uniform(0,300000)
 	pal = paliwo[random.randint(0,len(paliwo)-1)]
 	nr_rejstr = 'WI' + str(random.randint(10000,99999))
@@ -126,7 +126,7 @@ for j in range(50):
 	file_w8.write(pal+',')
 	file_w8.write(nr_rejstr+'\n')
 for j in range(1000):
-	pojazd_int = [3,random.randint(0,len(marka)-1),random.randint(0,len(model)-1),random.randint(0,len(kategoria_prawa_jazdy)-1)]
+	pojazd_int = [3,random.randint(1,len(marka)),random.randint(1,len(model)),random.randint(1,len(kategoria_prawa_jazdy))]
 	pojazd_float = random.uniform(0,300000)
 	pal = paliwo[random.randint(0,len(paliwo)-1)]
 	nr_rejstr = 'WI' + str(random.randint(10000,99999))

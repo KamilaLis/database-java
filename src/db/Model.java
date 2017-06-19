@@ -2,12 +2,13 @@ package db;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Vector;
 
 public class Model extends Table{
 	List<String> types;
 	
 	Model(Connection con){
-		getTable(con);
+		types = new Vector<String>();
 	}
 	
 	List<String> getTable(Connection con){
@@ -23,7 +24,7 @@ public class Model extends Table{
 		types.add(opis_typ);
 		String sql = "INSERT INTO model "+
 				"(opis_modelu)" +
-		        "VALUES ("+opis_typ+"); ";
+		        "VALUES ('"+opis_typ+"'); ";
 		update(con,sql);
 		
 	}

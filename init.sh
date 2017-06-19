@@ -7,7 +7,7 @@
 #read PASS
 #echo "Database name:"
 #read DATABASE
-USER="bd2"
+USER="postgres"
 PASS="bd2"
 DATABASE="bd2"
 
@@ -59,7 +59,9 @@ sudo -u postgres psql $DATABASE --command "COPY rodzaj_materialu(opis_rodzaju)
 FROM '$DIR/csvki/rodzaj_materialu.csv' DELIMITER ',' CSV HEADER;"
 sudo -u postgres psql $DATABASE --command "COPY czynnosc(opis_czynnosci) 
 FROM '$DIR/csvki/czynnosc.csv' DELIMITER ',' CSV HEADER;"
-
+sudo -u postgres psql $DATABASE --command "COPY pojazd(id_typ_pojazdu,id_marki,id_modelu,id_kat_prawa_jazdy,przebieg,
+rodz_paliwa,nr_rejestr) 
+FROM '$DIR/csvki/pojazd.csv' DELIMITER ',' CSV HEADER;"
 
 
 #OPCJONALNIE: Create new role

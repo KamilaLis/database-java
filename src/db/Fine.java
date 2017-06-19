@@ -1,13 +1,15 @@
 package db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
 public class Fine extends Table{
 
-	void addMember(Connection con, int id_kierowcy, String data,
+	void addMember(Connection con, int id_kierowcy,
+			Date data,
 			float oplata, int pkt_karne, int id_historii){
 		String sql = "INSERT INTO mandat "+
 			"(id_kierowcy,data,oplata,pkt_karne,id_historii)"

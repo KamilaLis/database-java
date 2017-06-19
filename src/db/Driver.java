@@ -5,17 +5,6 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class Driver extends Table{
-
-	void createTable(Connection con){
-		String sql = "CREATE TABLE kierowca " +
-				"(id_kierowcy INT PRIMARY KEY     NOT NULL," +
-				" imie           TEXT    NOT NULL, " +
-				" nazwisko       TEXT    NOT NULL, " +
-				" PESEL          BIGINT, " +
-				" kat_prawa_jazdy        CHAR)";
-		update(con,sql);
-		System.out.println("Table created successfully");
-	}
 	
 	DefaultTableModel getTableDriver(Connection con){
 		String sql = "SELECT * FROM kierowca;";
@@ -32,9 +21,10 @@ public class Driver extends Table{
 	}
 	
 	void addMember(Connection con, String name, String lastname,
-			int pesel, char drivingLicence){
-		String sql = "INSERT INTO kierowca (imie,nazwisko,PESEL,kat_prawa_jazdy)"
-	            + "VALUES ("+name+", "+lastname+", "+pesel+", "+drivingLicence+" );";
+			String pesel,int  id_zastepcy, int id_kat_prawa_jazdy, int id_pojazdu){
+		String sql = "INSERT INTO kierowca (imie,nazwisko,PESEL,id_zastepcy,id_kat_prawa_jazdy,id_pojazdu)"
+	            + "VALUES ('"+name+"', '"+lastname+"', '"+pesel+"', "+id_zastepcy+","+id_kat_prawa_jazdy+","+
+	            id_pojazdu+" );";
 		update(con,sql);
 	}
 	
@@ -158,18 +148,27 @@ public class Driver extends Table{
     public static void main(String[] args) {
     	//Podane argumenty to: host, uzytkownik, nazwa bazy, haslo
         Manager m = new Manager();
-        Connection con = m.connect("localhost","users","postgres","corewars");
+        Connection con = m.connect("localhost","bd2","postgres","bd2");
+        //Driver d = new Driver();
+        //d.addMember(con, "jan", "kowalski", "00000000000", 1, 1, 1);
+        //d.removeMember(con, 1);
+        //d.getTable(con);
         //String[] elems = {"login","password"};
         //DefaultTableModel users = m.getTable(con, "SELECT * FROM users_info;");
-        Table t = new Table();
-        List<String[]> response = t.getTableAsList(con, "SELECT * FROM users_info;");
+       // Table t = new Table();
+        /*List<String[]> response = (new Vehicle()).getTable(con);
         for( String[] row: response ){
             for( String s: row ){
                 System.out.print( " " + s );
             }
             System.out.println();
+        }*/
+        List<String> dict = (new Action(con)).getTable(con);
+        for(String row : dict){
+        	System.out.print( " " + row );
         }
-        System.out.println(response.get(0)[1]);
+        System.out.println();
+        //System.out.println(response.get(0)[1]);
         //users.setColumnIdentifiers(new String[] {"userID", "Value"});
         //System.out.println(users.getColumnName(0));
         //m.ask(con, "SELECT login,password FROM users_info WHERE user_id=3;",elems);

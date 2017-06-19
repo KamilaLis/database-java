@@ -12,7 +12,7 @@ public class Consumables extends Table{
 		String sql = "INSERT INTO materialy_eksploatacyjne "+
 			"(id_rodzaj_materialu," +
 			"cena,data_zakupu," +
-			"wielkosc)"
+			"litry)"
 	        + "VALUES ("+id_rodzaj_materialu+", "+ cena+", "+data_zakupu+", "
 				+wielkosc+" );";
 		update(con,sql);

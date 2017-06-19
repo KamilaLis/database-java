@@ -9,29 +9,31 @@ import javax.swing.table.DefaultTableModel;
 public class Servicing extends Table{
 
 	void addMember(Connection con, 
-			int id_serwisu,int id_przejazdu,Date data,int id_przedmiotu, 
-			int id_czynnosci, String miejsce_serwisu, float cena){
-		String sql = "INSERT INTO serwisowanie "+
+			int id_serwisu,int id_przejazdu,
+			Date data,int id_przedmiotu, 
+			int id_czynnosci,
+			String miejsce_serwisu, float cena){
+		String sql = "INSERT INTO serwis "+
 			"(id_serwisu,id_przejazdu,data,id_przedmiotu,id_czynnosci," +
 			"miejsce_serwisu,cena)" +
 	         "VALUES ("+id_serwisu+", "+id_przejazdu+","+data+", "+id_przedmiotu+"," +
-	         id_czynnosci+","+miejsce_serwisu+","+cena+"); ";
+	         id_czynnosci+",'"+miejsce_serwisu+"',"+cena+"); ";
 		update(con,sql);
 	}
 	
 	void removeMember(Connection con, int serviceID){
-		String sql = "DELETE from serwisowanie WHERE id_serwisu = "+serviceID+";";
+		String sql = "DELETE from serwis WHERE id_serwisu = "+serviceID+";";
 		update(con,sql);
 	}
 	
 	DefaultTableModel getTableServicing(Connection con){
-		String sql = "SELECT * FROM serwisowanie;";
+		String sql = "SELECT * FROM serwis;";
 		DefaultTableModel table = getTable(con, sql); 
 		return table;
 	}
 	
 	List<String[]> getTable(Connection con){
-		String sql = "SELECT * FROM serwisowanie;";
+		String sql = "SELECT * FROM serwis;";
 		return getTableAsList(con, sql); 
 	}
 	
@@ -40,7 +42,7 @@ public class Servicing extends Table{
 		//najdroższe serwisowanie po marce
 		String sql = "SELECT mk.opis_marki " +
 				",sum(sw.cena) AS cena_serwisu " +
-				"FROM serwisowanie sw " +
+				"FROM serwis sw " +
 				"LEFT JOIN pojazd pj ON sw.id_pojazdu = pj.id_pojazdu " +
 				"LEFT JOIN typ_pojazdu tp ON pj.id_typ_pojazdu = tp.id_typ_pojazdu " +
 				"and tp.opis_typ = " + type +

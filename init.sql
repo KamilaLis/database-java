@@ -4,13 +4,18 @@ CREATE TABLE typ_pojazdu(
 );
 
 CREATE TABLE marka(
-   id_marka SERIAL PRIMARY KEY NOT NULL,
+   id_marki SERIAL PRIMARY KEY NOT NULL,
    opis_marki char(50) NOT NULL
 );
 
 CREATE TABLE model(
    id_model SERIAL PRIMARY KEY NOT NULL,
    opis_modelu char(50) NOT NULL
+);
+
+CREATE TABLE kategoria_prawa_jazdy(
+   id_kat_prawa_jazdy SERIAL PRIMARY KEY NOT NULL,
+   opis_kat char(10) NOT NULL
 );
 
 CREATE TABLE pojazd(
@@ -22,11 +27,6 @@ CREATE TABLE pojazd(
    przebieg real NOT NULL,
    rodz_paliwa char(20) NOT NULL,
    nr_rejestr char(10) NOT NULL
-);
-
-CREATE TABLE kategoria_prawa_jazdy(
-   id_kat_prawa_jazdy SERIAL PRIMARY KEY NOT NULL,
-   opis_kat char(10) NOT NULL
 );
 
 CREATE TABLE kierowca(

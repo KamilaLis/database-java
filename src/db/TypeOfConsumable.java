@@ -2,17 +2,19 @@ package db;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Vector;
 
 public class TypeOfConsumable extends Table{
 	List<String> types;
 	
 	TypeOfConsumable(Connection con){
-		getTable(con);
+		types = new Vector<String>();
 	}
 	
 	List<String> getTable(Connection con){
 		//Pobierz typy z bazy danych
-		List<String[]> response = getTableAsList(con, "SELECT * FROM rodzaj_materialu;");
+		List<String[]> response = getTableAsList(con,
+				"SELECT * FROM rodzaj_materialu;");
         for( String[] row: response ){
 			types.add(row[1]);
         }
@@ -23,7 +25,7 @@ public class TypeOfConsumable extends Table{
 		types.add(opis_typ);
 		String sql = "INSERT INTO rodzaj_materialu "+
 				"(opis_rodzaju)" +
-		        "VALUES ("+opis_typ+"); ";
+		        "VALUES ('"+opis_typ+"'); ";
 		update(con,sql);
 		
 	}

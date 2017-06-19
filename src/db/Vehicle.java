@@ -7,15 +7,16 @@ import java.util.List;
 
 public class Vehicle extends Table{
 
-	void addMember(Connection con, int id_typ_pojazdu, int id_marki,
-			int id_modelu, char wymagana_kat_prawa_jazdy, float przebieg,
-			String rodz_paliwa, String nr_rejestracyjny ){//rodz_paliwa????
+	void addMember(Connection con, int id_typ_pojazdu,
+			int id_marki,int id_modelu, 
+			int id_kat_prawa_jazdy, float przebieg,
+			String rodz_paliwa, String nr_rejestracyjny ){
 		String sql = "INSERT INTO pojazd "+
 			"(id_typ_pojazdu,id_marki," +
-			"id_modelu,wymagana_kat_prawa_jazdy," +
+			"id_modelu,wymagana_kat_p_j," +
 			"przebieg, rodz_paliwa, nr_rejestracyjny)"
-	        + "VALUES ("+id_typ_pojazdu+", "+id_marki+", "+id_modelu+", "
-				+wymagana_kat_prawa_jazdy+","+przebieg+","+rodz_paliwa+","+nr_rejestracyjny+" );";
+	        + "VALUES ("+id_typ_pojazdu+", "+id_marki+", "+id_modelu+","
+				+id_kat_prawa_jazdy+","+przebieg+",'"+rodz_paliwa+"','"+nr_rejestracyjny+"' );";
 		update(con,sql);
 	}
 	
@@ -25,7 +26,7 @@ public class Vehicle extends Table{
 	}
 	
 	List<String[]> getTable(Connection con){
-		String sql = "SELECT * FROM pojazdy;";
+		String sql = "SELECT * FROM pojazd;";
 		return getTableAsList(con, sql); 
 	}
 	
