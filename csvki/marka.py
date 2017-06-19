@@ -170,3 +170,15 @@ for i in range(60):
 	file_w9.write(str(random.randint(1,1800))+'\n')
 
 file_w9.close()
+
+#przyczepa
+file_w10 = open('przyczepa.csv', 'w')
+file_w10.write('id_marki,id_modelu,numer_rejstr\n')
+
+for i in range(20):
+	nr_rejstr_przyczepy = 'WI' + str(random.randint(10000,99999))
+	file_w10.write(str(random.randint(1,len(marka)))+',')
+	file_w10.write(str(random.randint(1,len(model)))+',')
+	file_w10.write(nr_rejstr_przyczepy+'\n')
+	
+file_w10.close()
