@@ -67,7 +67,8 @@ echo "\copy marka(opis_marki) FROM $DIR/csvki/marka.csv DELIMITER ',' CSV;
 \copy historia_przejazdu(id_kierowcy,id_pojazdu,miejsce_startu,miejsce_docelowe,liczba_km,srednie_zuzycie_paliwa,cena_zuzytego_paliwa,data,przyczepa,id_przyczepy) FROM $DIR/csvki/historia_przejazdu.csv DELIMITER ',' NULL AS 'None' CSV ;
 \copy mandat(id_kierowcy,data,oplata,pkt_karne,id_historii) FROM $DIR/csvki/mandat.csv DELIMITER ',' CSV;
 \copy ladunek(id_rodzaju,waga,id_historii) FROM $DIR/csvki/ladunek.csv DELIMITER ',' CSV;
-\copy serwis(id_pojazdu,data,id_przedmiotu,id_czynnosci,miejsce_serwisu,cena) FROM $DIR/csvki/serwis.csv DELIMITER ',' NULL AS 'None' CSV" | psql $DATABASE -U $USER
+\copy serwis(id_pojazdu,data,id_przedmiotu,id_czynnosci,miejsce_serwisu,cena) FROM $DIR/csvki/serwis.csv DELIMITER ',' NULL AS 'None' CSV;
+\copy materialy_eksploatacyjne(id_rodzaj_materialu,cena,data_zakupu,litry) FROM $DIR/csvki/materialy_eksploatacyjne.csv DELIMITER ',' CSV;" | psql $DATABASE -U $USER
 
 
 #OPCJONALNIE: Create new role
