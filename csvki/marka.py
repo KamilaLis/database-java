@@ -221,6 +221,34 @@ for rok in range(2007,2017):
 		file_w11.write(str(rok)+'-'+str(miesiac)+'-'+str(dzien)+',')
 		file_w11.write(przyczepa+',')
 		file_w11.write(str(id_przyczepy)+'\n')
+	for i in range(1000):#osobowe
+		id_kierowcy = random.randint(1,len(kierowcy))
+		id_pojazdu = random.randint(752,801)
+		miejsce_startu = miasta[random.randint(0,len(miasta)-1)]
+		while True:
+			miejsce_docelowe=miasta[random.randint(0,len(miasta)-1)]
+			if miejsce_docelowe!=miejsce_startu:
+				break
+		liczba_km = random.uniform(500,5000)
+		srednie_zuzycie_paliwa = random.uniform(5,13)
+		cena_zuzytego_paliwa = liczba_km*(srednie_zuzycie_paliwa/100)*4
+		dzien = random.randint(1,28)
+		miesiac = random.randint(1,12)
+		przyczepa = random.choice(['true', 'false'])
+		if przyczepa=='true':
+			id_przyczepy = random.randint(1,20)
+		else:
+			id_przyczepy = None
+		file_w11.write(str(id_kierowcy)+',')
+		file_w11.write(str(id_pojazdu)+',')
+		file_w11.write(str(miejsce_startu)+',')
+		file_w11.write(str(miejsce_docelowe)+',')
+		file_w11.write(str(liczba_km)+',')
+		file_w11.write(str(srednie_zuzycie_paliwa)+',')
+		file_w11.write(str(cena_zuzytego_paliwa)+',')
+		file_w11.write(str(rok)+'-'+str(miesiac)+'-'+str(dzien)+',')
+		file_w11.write(przyczepa+',')
+		file_w11.write(str(id_przyczepy)+'\n')
 	for miesiac in range(1,12):
 		for dzien in range(1,28):
 			for i in range(5):#dostawcze
@@ -290,6 +318,22 @@ file_w14 = open('serwis.csv', 'w')
 for rok in range(2007,2017):
 	for i in range(750):#ciezarowe
 		id_pojazdu = random.randint(1,751)
+		dzien = random.randint(1,28)
+		miesiac = random.randint(1,12)
+		id_czynnosci = random.randint(1,len(czynnosc))
+		id_przedmiotu = None
+		if czynnosc[id_czynnosci-1]!='przeglad':
+			id_przedmiotu = random.randint(1,len(czesci_samochodowe))		
+		miejsce_serwisu = miasta_pol[random.randint(0,len(miasta_pol)-1)]
+		cena = random.uniform(100,5000)
+		file_w14.write(str(id_pojazdu)+',')
+		file_w14.write(str(rok)+'-'+str(miesiac)+'-'+str(dzien)+',')
+		file_w14.write(str(id_przedmiotu)+',')
+		file_w14.write(str(id_czynnosci)+',')
+		file_w14.write(str(miejsce_serwisu)+',')
+		file_w14.write(str(cena)+'\n')
+	for i in range(1000):#dostawcze
+		id_pojazdu = random.randint(801,1800)
 		dzien = random.randint(1,28)
 		miesiac = random.randint(1,12)
 		id_czynnosci = random.randint(1,len(czynnosc))

@@ -1,4 +1,4 @@
-#zapytanie 1a) kierowca, ktory przejechal najwiecej
+#zapytanie 1a) kierowca, ktory przejechal najwiecej 
 #wymagane zmienne: DATA1 i DATA2
 
 "SELECT kr.id_kierowcy
@@ -31,15 +31,7 @@ LIMIT 1 ;"
 #zapytanie 2) największe średnie zużycie paliwa
 #wymagane zmienne: DATA1 i DATA2
 
-"SELECT pj.id_pojazdu
-   ,avg(hp.srednie_zuzycie_paliwa) AS srednie_paliwo
-
-FROM pojazd pj
-LEFT JOIN historia_przejazdu hp ON pj.id_pojazdu = hp.id_pojazdu
-and hp.data > " + DATA1 + " and hp.data < " + DATA2 + 
-"GROUP BY pj.id_pojazdu
-ORDER BY avg(hp.srednie_zuzycie_paliwa) DESC
-LIMIT 1 ;"
+"SELECT pj.id_pojazdu,avg(hp.srednie_zuzycie_paliwa) AS srednie_paliwo FROM pojazd pj LEFT JOIN historia_przejazdu hp ON pj.id_pojazdu = hp.id_pojazdu GROUP BY pj.id_pojazdu ORDER BY avg(hp.srednie_zuzycie_paliwa) DESC LIMIT 1 ;"
 
 #TODO:##############
 #zapytanie 3) najdroższe serwisowanie po marce
@@ -197,17 +189,7 @@ LIMIT 1 ;"
 
 #zapytanie 11b) Przy przewozie jakiego łądunku w okresie od... do ... przyznano najwieksza liczbe punktow karnych
 
-"SELECT ld.opis_rodzaju
-    ,sum(m.pkt_karne) AS max_liczba_km
-
-FROM ladunek ld
-LEFT JOIN rodzaj_ladunku rl on ld.id_rodzaju = rl.id_rodzaju
-LEFT JOIN historia_przejazdu hp ON hp.id_historii = ld.id_historii
-LEFT JOIN mandat m ON hp.id_historii = m.id_historii 
-and m.data > " + DATA1 + " and m.data < " + DATA2 + 
-"GROUP BY ld.id_rodzaju
-ORDER BY sum(m.pkt_karne) ASC
-LIMIT 1 ;"
+"SELECT rl.opis_rodzaju,sum(m.pkt_karne) AS max_liczba_km FROM ladunek ld LEFT JOIN rodzaj_ladunku rl on ld.id_rodzaju = rl.id_rodzaju LEFT JOIN historia_przejazdu hp ON hp.id_historii = ld.id_historii LEFT JOIN mandat m ON hp.id_historii = m.id_historii GROUP BY rl.opis_rodzaju ORDER BY sum(m.pkt_karne) ASC LIMIT 1 ;"
 
 
 
