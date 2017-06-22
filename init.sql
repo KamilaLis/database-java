@@ -94,7 +94,7 @@ CREATE TABLE serwis(
    id_serwisu SERIAL PRIMARY KEY NOT NULL,
    id_pojazdu int NOT NULL REFERENCES pojazd,
    data date NOT NULL,
-   id_przedmiotu int NOT NULL REFERENCES czesc_samochodowa,
+   id_przedmiotu int REFERENCES czesc_samochodowa,
    id_czynnosci int NOT NULL REFERENCES czynnosc,
    miejsce_serwisu char(50) NOT NULL,
    cena real NOT NULL

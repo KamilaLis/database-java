@@ -51,15 +51,8 @@ psql $DATABASE -U $USER --file $path
 
 # Import CSV file into table
 echo "Importing data from CSV files..."
-chmod a+rwx "$DIR/csvki/marka.csv"
-chmod a+rwx "$DIR/csvki/model.csv"
-chmod a+rwx "$DIR/csvki/typ_pojazdu.csv"
-chmod a+rwx "$DIR/csvki/kategoria_prawa_jazdy.csv"
-chmod a+rwx "$DIR/csvki/rodzaj_ladunku.csv"
-chmod a+rwx "$DIR/csvki/czesc_samochodowa.csv"
-chmod a+rwx "$DIR/csvki/rodzaj_materialu.csv"
-chmod a+rwx "$DIR/csvki/pojazd.csv"
-chmod a+rwx "$DIR/csvki/czynnosc.csv"
+chmod -R a+rwx "$DIR/csvki/"
+
 echo "\copy marka(opis_marki) FROM $DIR/csvki/marka.csv DELIMITER ',' CSV;
 \copy model(opis_modelu) FROM $DIR/csvki/model.csv DELIMITER ',' CSV;
 \copy typ_pojazdu(opis_typ) FROM $DIR/csvki/typ_pojazdu.csv DELIMITER ',' CSV;
@@ -68,7 +61,13 @@ echo "\copy marka(opis_marki) FROM $DIR/csvki/marka.csv DELIMITER ',' CSV;
 \copy czesc_samochodowa(opis_czesci) FROM $DIR/csvki/czesc_samochodowa.csv DELIMITER ',' CSV;
 \copy rodzaj_materialu(opis_rodzaju) FROM $DIR/csvki/rodzaj_materialu.csv DELIMITER ',' CSV;
 \copy czynnosc(opis_czynnosci) FROM $DIR/csvki/czynnosc.csv DELIMITER ',' CSV;
-\copy pojazd(id_typ_pojazdu,id_marki,id_modelu,id_kat_prawa_jazdy,przebieg,rodz_paliwa,nr_rejestr) FROM $DIR/csvki/pojazd.csv DELIMITER ',' CSV" | psql $DATABASE -U $USER
+\copy pojazd(id_typ_pojazdu,id_marki,id_modelu,id_kat_prawa_jazdy,przebieg,rodz_paliwa,nr_rejestr) FROM $DIR/csvki/pojazd.csv DELIMITER ',' CSV;
+\copy kierowca(imie,nazwisko,PESEL,id_zastepcy,id_kat_prawa_jazdy,id_pojazdu) FROM $DIR/csvki/kierowcy.csv DELIMITER ',' CSV;
+\copy przyczepa(id_marki,id_modelu,nr_rejestr) FROM $DIR/csvki/przyczepa.csv DELIMITER ',' CSV;
+\copy historia_przejazdu(id_kierowcy,id_pojazdu,miejsce_startu,miejsce_docelowe,liczba_km,srednie_zuzycie_paliwa,cena_zuzytego_paliwa,data,przyczepa,id_przyczepy) FROM $DIR/csvki/historia_przejazdu.csv DELIMITER ',' NULL AS 'None' CSV ;
+\copy mandat(id_kierowcy,data,oplata,pkt_karne,id_historii) FROM $DIR/csvki/mandat.csv DELIMITER ',' CSV;
+\copy ladunek(id_rodzaju,waga,id_historii) FROM $DIR/csvki/ladunek.csv DELIMITER ',' CSV;
+\copy serwis(id_pojazdu,data,id_przedmiotu,id_czynnosci,miejsce_serwisu,cena) FROM $DIR/csvki/serwis.csv DELIMITER ',' NULL AS 'None' CSV" | psql $DATABASE -U $USER
 
 
 #OPCJONALNIE: Create new role
