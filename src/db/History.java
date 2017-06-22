@@ -32,7 +32,7 @@ public class History extends Table{
 		update(con,sql);
 	}
 	
-	List<String[]> getTable(Connection con){
+	static List<String[]> getTable(Connection con){
 		String sql = "SELECT * FROM historia_przejazdu;";
 		return getTableAsList(con, sql); 
 	}

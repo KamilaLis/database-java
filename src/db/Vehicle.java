@@ -25,7 +25,7 @@ public class Vehicle extends Table{
 		update(con,sql);
 	}
 	
-	List<String[]> getTable(Connection con){
+	static List<String[]> getTable(Connection con){
 		String sql = "SELECT * FROM pojazd;";
 		return getTableAsList(con, sql); 
 	}
@@ -40,16 +40,18 @@ public class Vehicle extends Table{
 		update(con, sql);
 	}
 	
-	String[] getVehicleWithMaxFuelConsumption(Connection con, Date from, Date to){
-		String sql = "SELECT pj.id_pojazdu" +
+	static String[] getVehicleWithMaxFuelConsumption(Connection con){
+		String sql = "SELECT pj.id_pojazdu, m.opis_marki, mo.opis_modelu " +
 				",avg(hp.srednie_zuzycie_paliwa) AS srednie_paliwo" +
 				" FROM pojazd pj " +
-				"LEFT JOIN historia_przejazdu hp ON pj.id_pojazdu = hp.id_pojazdu " +
-				"and hp.data > " + from + " and hp.data < " + to + 
-				"GROUP BY pj.id_pojazdu " +
-				"ORDER BY avg(hp.srednie_zuzycie_paliwa) DESC " +
-				"LIMIT 1 ;";
-		String[] elems = {"pj.id_pojazdu","hp.srednie_zuzycie_paliwa"};
+				" LEFT JOIN historia_przejazdu hp ON pj.id_pojazdu = hp.id_pojazdu " +
+				" LEFT JOIN marka m ON pj.id_marki = m.id_marki " + 
+				" LEFT JOIN model mo ON pj.id_modelu = mo.id_model " +
+				" GROUP BY pj.id_pojazdu, m.opis_marki, mo.opis_modelu " +
+				" HAVING avg(hp.srednie_zuzycie_paliwa)>=0 " + 
+				" ORDER BY avg(hp.srednie_zuzycie_paliwa) DESC " +
+				" LIMIT 1 ;";
+		String[] elems = {"id_pojazdu","opis_marki","opis_modelu","srednie_paliwo"};
 		return ask(con, sql, elems);
 	}
 }

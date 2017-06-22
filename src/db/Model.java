@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Vector;
 
-public class Model extends Table{
+ public class Model extends Table{
 	List<String> types;
 	
 	Model(Connection con){
