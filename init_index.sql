@@ -113,3 +113,19 @@ CREATE TABLE materialy_eksploatacyjne(
    litry real NOT NULL
 );
 
+CREATE INDEX index_kier_id ON kierowca(id_kierowcy);
+CREATE INDEX index_historia_data ON historia_przejazdu(data);
+CREATE INDEX index_historia_id_kier ON historia_przejazdu(id_kierowcy);
+CREATE INDEX index_historia_id_kier_data ON historia_przejazdu(id_kierowcy, data);
+CREATE INDEX index_pojazd_id ON pojazd(id_pojazdu);
+CREATE INDEX index_historia_id_poj ON historia_przejazdu(id_pojazdu);
+CREATE INDEX index_serwisowanie_id_poj_data ON serwis(id_pojazdu, data);
+CREATE INDEX index_pojazd_typ_id ON pojazd(id_typ_pojazdu);
+CREATE INDEX index_pojazd_marka ON pojazd(id_marki);
+CREATE INDEX index_kier_id_poj ON kierowca(id_pojazdu);
+CREATE INDEX index_materialy_eks ON materialy_eksploatacyjne(id_rodzaj_materialu);
+CREATE INDEX index_historia_id ON historia_przejazdu(id_historii);
+CREATE INDEX index_ladunek_historia ON ladunek(id_historii);
+CREATE INDEX index_mandat_id_kier_data ON mandat(id_kierowcy, data);
+CREATE INDEX index_mandat_id_historii_data ON mandat(id_historii, data);
+
