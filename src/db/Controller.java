@@ -15,13 +15,19 @@ class Controller extends Manager implements ControlerInterface{
 	private TypeOfDrivingLicence todl;
 	private TypeOfVehicle tov;
 	
-	public Controller(){
-		con = connect("localhost","bd2","bd2","bd2");
+	public Controller(String[] args){
+		con = connect(args[0],args[1],args[2],args[3]);
+		//con = connect("localhost","bd2","bd2","bd2");
 		mod = new Model(con);
 		mak = new Mark(con);
 		tov = new TypeOfVehicle(con);
+		toc = new TypeOfCargo(con);
+		poc = new PartsOfCar(con);
+		tocon = new TypeOfConsumable(con);
+		todl = new TypeOfDrivingLicence(con);
 	}
 	
+	@Override
 	public void close(){
 		this.closeConnection(con);
 	}
@@ -187,4 +193,153 @@ class Controller extends Manager implements ControlerInterface{
 		Cargo.addMember(con, id_rodzaju, waga, id_historii);
 	}
 	
+	@Override
+	public void addDriver(String name, String lastname, String pesel,
+    		int id_zastepcy, int id_kat_prawa_jazdy, int id_pojazdu){
+		Driver.addMember(con, name, lastname, pesel,
+	    		id_zastepcy, id_kat_prawa_jazdy, id_pojazdu);
+	}
+	
+	@Override
+	public void addFine(int id_kierowcy, java.sql.Date data,
+			float oplata, int pkt_karne, int id_historii){
+		Fine.addMember(con, id_kierowcy, data, oplata, pkt_karne, id_historii);
+	}
+	
+	@Override
+	public void addHistory(int id_kierowcy, int id_pojazdu, String miejsce_startu,
+			String miejsce_docelowe, float liczba_km,
+			float srednie_zuzycie_paliwa,float cena_zużytego_paliwa,
+			java.sql.Date data, boolean przyczepa, int id_przyczepy ){
+		History.addMember(con, id_kierowcy, id_pojazdu, miejsce_startu,
+				miejsce_docelowe, liczba_km, srednie_zuzycie_paliwa, 
+				cena_zużytego_paliwa, data, przyczepa, id_przyczepy);
+	}
+	
+	@Override
+	public void addMark(String opis_typ){
+		mak.addMember(con, opis_typ);
+	}
+	
+	@Override
+	public void addModel(String opis_typ){
+		mod.addMember(con, opis_typ);
+	}
+	
+	@Override
+	public void addPartsOfCar(String opis_typ){
+		poc.addMember(con, opis_typ);
+	}
+	
+	@Override
+	public void addServicing(int id_serwisu,int id_przejazdu,
+			Date data,int id_przedmiotu, int id_czynnosci,
+			String miejsce_serwisu, float cena){
+		Servicing.addMember(con, id_serwisu, id_przejazdu, 
+				data, id_przedmiotu, id_czynnosci, miejsce_serwisu, cena);
+	}
+	
+	@Override
+	public void addTrailer(int id_marki, int id_modelu, String nr_rejestracyjny){
+		Trailer.addMember(con, id_marki, id_modelu, nr_rejestracyjny);
+	}
+	
+	@Override
+	public void addTypeOfCargo(String opis_typ){
+		toc.addMember(con, opis_typ);
+	}
+	
+	@Override
+	public void addTypeOfConsumable(String opis_typ){
+		tocon.addMember(con, opis_typ);
+	}
+	
+	@Override
+	public void addTypeOfDrivingLicence(String opis_typ){
+		todl.addMember(con, opis_typ);
+	}
+	
+	@Override
+	public void addTypeOfVehicle(String opis_typ){
+		tov.addMember(con, opis_typ);
+	}
+	
+	@Override
+	public void removeCargo(int cargoID){
+		Cargo.removeMember(con, cargoID);
+	}
+
+	@Override
+	public void removeDriver(int driverID) {
+		Driver.removeMember(con, driverID);
+		
+	}
+
+	@Override
+	public void removeFine(int fineID) {
+		Fine.removeMember(con, fineID);
+	}
+
+	@Override
+	public void removeHistory(int historyID) {
+		History.removeMember(con, historyID);
+	}
+
+	@Override
+	public void removeMark(int markID) {
+		mak.removeMember(con, markID);
+	}
+	
+	@Override
+	public void removeModel(int modelID) {
+		mod.removeMember(con, modelID);
+	}
+
+	@Override
+	public void removePartsOfCar(int partsOfCarID) {
+		poc.removeMember(con, partsOfCarID);
+	}
+	
+	@Override
+	public void removeServicing(int servicingID) {
+		Servicing.removeMember(con, servicingID);
+	}
+
+	@Override
+	public void removeTrailer(int trailerID) {
+		Trailer.removeMember(con, trailerID);
+	}
+
+	@Override
+	public void removeTypeOfCargo(int typeOfCargoID) {
+		toc.removeMember(con, typeOfCargoID);
+	}
+
+	@Override
+	public void removeTypeOfConsumable(int typeOfConsumableID) {
+		tocon.removeMember(con, typeOfConsumableID);
+	}
+	
+	@Override
+	public void removeTypeOfDrivingLicence(int typeOfDrivingLicenceID) {
+		todl.removeMember(con, typeOfDrivingLicenceID);
+	}
+
+	@Override
+	public void removeTypeOfVehicle(int typeOfVehicleID) {
+		tov.removeMember(con, typeOfVehicleID);
+	}
+
+	@Override
+	public void addVehicle(int id_typ_pojazdu, int id_marki, int id_modelu,
+			int id_kat_prawa_jazdy, float przebieg,
+			String rodz_paliwa, String nr_rejestracyjny) {
+		Vehicle.addMember(con, id_typ_pojazdu, id_marki, id_modelu, 
+				id_kat_prawa_jazdy, przebieg, rodz_paliwa, nr_rejestracyjny);
+	}
+
+	@Override
+	public void removeVehicle(int vehicleID) {
+		Vehicle.removeMember(con, vehicleID);
+	}
 }

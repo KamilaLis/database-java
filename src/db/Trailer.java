@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Trailer extends Table{
 
-	void addMember(Connection con, int id_marki,
+	static void addMember(Connection con, int id_marki,
 			int id_modelu, String nr_rejestracyjny ){
 		String sql = "INSERT INTO przyczepa "+
 			"(id_marki," +
@@ -15,7 +15,7 @@ public class Trailer extends Table{
 		update(con,sql);
 	}
 	
-	void removeMember(Connection con, int trailerID){
+	static void removeMember(Connection con, int trailerID){
 		String sql = "DELETE from przyczepa WHERE id_przyczepy = "+trailerID+";";
 		update(con,sql);
 	}

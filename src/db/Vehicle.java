@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Vehicle extends Table{
 
-	void addMember(Connection con, int id_typ_pojazdu,
+	static void addMember(Connection con, int id_typ_pojazdu,
 			int id_marki,int id_modelu, 
 			int id_kat_prawa_jazdy, float przebieg,
 			String rodz_paliwa, String nr_rejestracyjny ){
@@ -20,7 +20,7 @@ public class Vehicle extends Table{
 		update(con,sql);
 	}
 	
-	void removeMember(Connection con, int vehicleID){
+	static void removeMember(Connection con, int vehicleID){
 		String sql = "DELETE from pojazd WHERE id_pojazdu = "+vehicleID+";";
 		update(con,sql);
 	}

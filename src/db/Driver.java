@@ -20,7 +20,7 @@ public class Driver extends Table{
 		return getTableAsList(con, sql); 
 	}
 	
-	void addMember(Connection con, String name, String lastname,
+	static void addMember(Connection con, String name, String lastname,
 			String pesel,int  id_zastepcy, int id_kat_prawa_jazdy, int id_pojazdu){
 		String sql = "INSERT INTO kierowca (imie,nazwisko,PESEL,id_zastepcy,id_kat_prawa_jazdy,id_pojazdu)"
 	            + "VALUES ('"+name+"', '"+lastname+"', '"+pesel+"', "+id_zastepcy+","+id_kat_prawa_jazdy+","+
@@ -28,7 +28,7 @@ public class Driver extends Table{
 		update(con,sql);
 	}
 	
-	void removeMember(Connection con, int driverID){
+	static void removeMember(Connection con, int driverID){
 		String sql = "DELETE from kierowca where id_kierowcy = "+driverID+";";
 		update(con,sql);
 	}

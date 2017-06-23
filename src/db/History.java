@@ -6,7 +6,7 @@ import java.util.List;
 
 public class History extends Table{
 
-	void addMember(Connection con, int id_kierowcy,
+	static void addMember(Connection con, int id_kierowcy,
 			int id_pojazdu, String miejsce_startu,
 			String miejsce_docelowe, float liczba_km,
 			float srednie_zuzycie_paliwa,
@@ -27,7 +27,7 @@ public class History extends Table{
 		//uwzglednij zuzyte paliwo (?)
 	}
 	
-	void removeMember(Connection con, int historyID){
+	static void removeMember(Connection con, int historyID){
 		String sql = "DELETE from historia_przejazdu WHERE id_historii = "+historyID+";";
 		update(con,sql);
 	}

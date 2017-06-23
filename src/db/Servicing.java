@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Servicing extends Table{
 
-	void addMember(Connection con, 
+	static void addMember(Connection con, 
 			int id_serwisu,int id_przejazdu,
 			Date data,int id_przedmiotu, 
 			int id_czynnosci,
@@ -21,7 +21,7 @@ public class Servicing extends Table{
 		update(con,sql);
 	}
 	
-	void removeMember(Connection con, int serviceID){
+	static void removeMember(Connection con, int serviceID){
 		String sql = "DELETE from serwis WHERE id_serwisu = "+serviceID+";";
 		update(con,sql);
 	}

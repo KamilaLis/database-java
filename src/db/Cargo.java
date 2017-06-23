@@ -17,7 +17,7 @@ public class Cargo extends Table{
 		update(con,sql);
 	}
 	
-	void removeMember(Connection con, int cargoID){
+	static void removeMember(Connection con, int cargoID){
 		String sql = "DELETE from ladunek WHERE id_ladunku = "+cargoID+";";
 		update(con,sql);
 	}

@@ -3,6 +3,7 @@ package db;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,14 @@ public class Table {
 			stmt.close();
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+			try {
+				con.close();
+			} catch (SQLException r) {
+				e.printStackTrace();
+				System.err.println(r.getClass().getName()
+						+": "+r.getMessage());
+			}
+			System.out.println("Connection with database closed successfully");
 			System.exit(0);
 		}
 	}
@@ -41,6 +50,14 @@ public class Table {
             stmt.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+            try {
+				con.close();
+			} catch (SQLException r) {
+				e.printStackTrace();
+				System.err.println(r.getClass().getName()
+						+": "+r.getMessage());
+			}
+			System.out.println("Connection with database closed successfully");
             System.exit(0);
         }
         return o;
@@ -65,6 +82,14 @@ public class Table {
 			stmt.close();
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+			try {
+				con.close();
+			} catch (SQLException r) {
+				e.printStackTrace();
+				System.err.println(r.getClass().getName()
+						+": "+r.getMessage());
+			}
+			System.out.println("Connection with database closed successfully");
 			System.exit(0);
 		}
 		System.out.println("Operation done successfully");
@@ -91,6 +116,14 @@ public class Table {
 	         stmt.close();
 	      } catch ( Exception e ) {
 	         System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+	         try {
+					con.close();
+				} catch (SQLException r) {
+					e.printStackTrace();
+					System.err.println(r.getClass().getName()
+							+": "+r.getMessage());
+				}
+				System.out.println("Connection with database closed successfully");
 	         System.exit(0);
 	      }
 	      System.out.println("Operation done successfully");
