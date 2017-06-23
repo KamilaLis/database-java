@@ -22,7 +22,7 @@ public class Action extends Table{
         }
         return map;
 	}
-	
+	//static 
 	List<String> getTable(Connection con){
 		//Pobierz typy z bazy danych
 		List<String[]> response = getTableAsList(con, "SELECT * FROM czynnosc;");

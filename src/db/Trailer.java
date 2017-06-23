@@ -20,7 +20,7 @@ public class Trailer extends Table{
 		update(con,sql);
 	}
 	
-	List<String[]> getTable(Connection con){
+	static List<String[]> getTable(Connection con){
 		String sql = "SELECT * FROM przyczepa;";
 		return getTableAsList(con, sql); 
 	}

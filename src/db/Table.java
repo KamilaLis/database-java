@@ -10,7 +10,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class Table {
-	void update(Connection con,String sql){
+	static void update(Connection con,String sql){
 		// Realizacja zapytan typu: INSERT, CREATE...
 		Statement stmt = null;
 		try {
@@ -23,29 +23,30 @@ public class Table {
 		}
 	}
 	
-	String[] ask(Connection con, String query, String[] names){
-		// Realizacja zapytan typu: SELECT
-		Statement stmt = null;
-		String[] o = new String[names.length];
-		try {
-			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-			while ( rs.next() ) {
-				for (int i=0; i<names.length;++i){
-					o[i] = rs.getString(names[i]);
-					System.out.println(o[i]);
-				}
-			}
-			rs.close();
-			stmt.close();
-		} catch ( Exception e ) {
-			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-			System.exit(0);
-		}
-		return o;
-	}
+	static String[] ask(Connection con, String query, String[] names){
+        // Realizacja zapytan typu: SELECT
+        Statement stmt = null;
+        String[] o = new String[names.length];
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while ( rs.next() ) {
+                for (int i=0; i<names.length;++i){
+                    String some_string = rs.getString(names[i]);
+                    o[i] = some_string.replaceAll("\\s+"," ");
+                    System.out.println(o[i]);
+                }
+            }
+            rs.close();
+            stmt.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+            System.exit(0);
+        }
+        return o;
+    }
 	
-	DefaultTableModel getTable(Connection con, String sql){
+	static DefaultTableModel getTable(Connection con, String sql){
 		Statement stmt = null;
 		DefaultTableModel model = new DefaultTableModel();
 		try {
@@ -70,7 +71,7 @@ public class Table {
 		return model;
 	}
 	
-	List<String[]> getTableAsList(Connection con, String sql){
+	static List<String[]> getTableAsList(Connection con, String sql){
 		Statement stmt = null;
 		List<String[]> table = new ArrayList<>();
 	      try {

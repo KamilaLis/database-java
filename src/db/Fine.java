@@ -31,7 +31,7 @@ public class Fine extends Table{
 		return table;
 	}
 	
-	List<String[]> getTable(Connection con){
+	static List<String[]> getTable(Connection con){
 		String sql = "SELECT * FROM mandat;";
 		return getTableAsList(con, sql); 
 	}
